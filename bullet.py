@@ -25,7 +25,3 @@ class Bullet(pygame.sprite.Sprite):
 
         self.rect.x = self.true_x - offset_x
 
-        # Remove old bullets
-        # self.lifetime -= 1
-        # if self.lifetime <= 0:
-        #     self.kill()

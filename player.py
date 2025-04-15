@@ -174,11 +174,6 @@ class Player(pygame.sprite.Sprite):
         self.count = 0
         self.y_vel *= -1
 
-    # def die(self):
-    #     self.rect.y = 100
-    #     self.y_vel = 0
-    #     self.x_vel = 0
-
     def shoot(self):
         if self.shoot_cooldown == 0:
             # Better bullet spawn position (from player's gun)

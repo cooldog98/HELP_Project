@@ -23,5 +23,3 @@ class HealthBar:
         pygame.draw.rect(screen, 'red', (self.x, self.y, self.w, self.h))
         pygame.draw.rect(screen, 'green', (self.x, self.y, self.w * ratio, self.h))
 
-    # def health_player(self, damage):
-    #     self.hp -= damage

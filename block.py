@@ -29,16 +29,3 @@ class Block(Object):
         rect = pygame.Rect(0, 0, size, size)
         surface.blit(image, (0, 0), rect)
         return pygame.transform.scale(surface, (size, size))
-
-
-# class Object(pygame.sprite.Sprite):
-#     def __init__(self, x, y, width, height, name=None):
-#         super().__init__()
-#         self.rect = pygame.Rect(x, y, width, height)
-#         self.image = pygame.Surface((width, height), pygame.SRCALPHA)
-#         self.width = width
-#         self.height = height
-#         self.name = name
-#
-#     def draw(self, _screen, offset_x):
-#         _screen.blit(self.image, (self.rect.x - offset_x, self.rect.y))

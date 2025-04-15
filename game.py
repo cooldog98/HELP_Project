@@ -1069,3 +1069,5 @@ class Game:
 #     # เริ่มเกมด้วยชื่อผู้เล่น
 #     game = Game(player_name)
 #     game.start_game()
+
+#
