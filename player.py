@@ -1,17 +1,14 @@
-import sys
-import os
 import pygame
 from os import walk
-from os import listdir
 from os.path import isfile, join
-from gun import Bullet
+from bullet import Bullet
 
 
 class Player(pygame.sprite.Sprite):
     color = (255, 0, 0)
     gravity = 0.4
     # SPRITES = load_sprite_sheets('graphic', 'animation', 210, 266, True)
-    '''dir1 , dir2 is dir that picture stay with width and height is size of picture thant 
+    '''dir1 , dir2 is dir that picture stay with width and height is size of picture thant
     use to cut if fix incorrect size the picture will have another picture than beside wit, then ture is
     make right and left direction'''
     animation_delay = 5
@@ -33,10 +30,14 @@ class Player(pygame.sprite.Sprite):
         # self.animation_timer = 0
 
         self.load_image()
-        self.state, self.frames_index = 'run', 0
+        self.state, self.frames_index = 'player', 0
         self.image = self.frames[self.state][0]
 
         self.bullets = pygame.sprite.Group()
+        self.shoot_cooldown = 0
+
+        self.hp = 100
+
 
     def jump(self):
         # self.y_vel = -self.gravity * 8
@@ -79,11 +80,17 @@ class Player(pygame.sprite.Sprite):
     #     self.y_vel += min(2, (self.fall_count / fps) * self.gravity)
     #     self.fall_count += 1
 
-    def loop(self, fps):
+    def loop(self, fps, dt):
         self.y_vel += min(2, (self.fall_count / fps) * self.gravity)
         self.fall_count += 1
-        # self._gravity(fps)
-        self.move(self.x_vel, self.y_vel)
+        # self.y_vel += min(2, (self.fall_count / fps) * self.gravity)
+        # self.fall_count += 1
+        #
+        # # Apply dt to movement
+        # x_move = self.x_vel * dt * 60
+        # y_move = self.y_vel * dt * 60
+        #
+        # self.move(x_move, y_move)
 
         # self.fall_count += 1
         # self.update_sprite()
@@ -139,22 +146,22 @@ class Player(pygame.sprite.Sprite):
         print(self.frames)
 
     def animate(self, dt):
-        """get_state"""
-        # keys = pygame.key.get_pressed()
-        # if keys[pygame.K_a] or keys[pygame.K_d]:
+        # Get state
         if self.x_vel != 0:
             self.state = 'run'
         elif self.y_vel != 0:
             if self.jump_count == 1 or self.jump_count == 2:
                 self.state = 'jump'
-        # elif self.y_vel > self.gravity * 2:
-        #     self.state = 'player'
-            # elif self.jump_count == 2:
-            #     self.state = 'jump_2'
-        else:
+        elif self.y_vel > self.gravity * 2:
+            if self.x_vel != 0:
+                self.state = 'run'
+            elif self.x_vel == 0:
+                self.state = 'player'
+        elif self.x_vel == 0:
             self.state = 'player'
-        """animate"""
-        speed_factor = max(abs(self.x_vel) / 10, 1)
+
+        # Animate
+        # print(self.x_vel)
         self.frames_index += 7 * dt
         self.image = self.frames[self.state][int(self.frames_index) % len(self.frames[self.state])]
 
@@ -167,13 +174,27 @@ class Player(pygame.sprite.Sprite):
         self.count = 0
         self.y_vel *= -1
 
-    def die(self):
-        self.rect.y = 100
-        self.y_vel = 0
-        self.x_vel = 0
+    # def die(self):
+    #     self.rect.y = 100
+    #     self.y_vel = 0
+    #     self.x_vel = 0
 
     def shoot(self):
-        bullet_x = self.rect.centerx
-        bullet_y = self.rect.centery - 20
-        bullet = Bullet(bullet_x, bullet_y)
-        self.bullets.add(bullet)
+        if self.shoot_cooldown == 0:
+            # Better bullet spawn position (from player's gun)
+            if self.direction == 'right':
+                bullet_x = self.rect.right + 10
+            else:
+                bullet_x = self.rect.left - 10
+            bullet_y = self.rect.centery  # Adjust to gun position
+
+            bullet = Bullet(bullet_x, bullet_y, self.direction)
+            self.bullets.add(bullet)
+            self.shoot_cooldown = 15  # Cooldown frames
+
+    def update(self):
+        if self.shoot_cooldown > 0:
+            self.shoot_cooldown -= 1
+
+    def health_player(self, damage):
+        self.hp -= damage
