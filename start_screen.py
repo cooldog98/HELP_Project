@@ -9,6 +9,7 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GREEN = (0, 255, 0)
 
+
 class StartScreen:
     def __init__(self):
         self.running = True
@@ -77,12 +78,6 @@ class StartScreen:
             clock.tick(30)
 
     def display(self):
-        # input_box = pygame.Rect((screen_width - 400) // 2, 350, 400, 60)
-        # color_inactive = pygame.Color('lightskyblue')
-        # color_active = pygame.Color('dodgerblue')
-        # color = color_inactive
-        # text = ''
-        # font = pygame.font.SysFont('Arial', 40)
         while self.running:
             """make background"""
             screen.blit(self.bg_image, (0, 0))

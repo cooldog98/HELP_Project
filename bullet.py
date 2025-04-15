@@ -24,4 +24,3 @@ class Bullet(pygame.sprite.Sprite):
             self.true_x -= move_distance
 
         self.rect.x = self.true_x - offset_x
-

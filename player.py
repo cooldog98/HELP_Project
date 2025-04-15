@@ -161,7 +161,6 @@ class Player(pygame.sprite.Sprite):
             self.state = 'player'
 
         # Animate
-        # print(self.x_vel)
         self.frames_index += 7 * dt
         self.image = self.frames[self.state][int(self.frames_index) % len(self.frames[self.state])]
 

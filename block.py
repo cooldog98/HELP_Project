@@ -1,5 +1,5 @@
 import pygame
-from os.path import isfile, join
+from os.path import join
 
 
 class Object(pygame.sprite.Sprite):

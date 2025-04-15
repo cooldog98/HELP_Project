@@ -4,7 +4,6 @@ from os import walk
 from os.path import join
 
 
-#
 class Enemy_1(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height):
         super().__init__()

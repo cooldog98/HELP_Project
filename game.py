@@ -1055,19 +1055,3 @@ class Game:
             pygame.display.update()
             """setup frames per second be 60"""
             self.clock.tick(60)
-
-
-# if __name__ == "__main__":
-#     game = Game()
-#     game.start_game()
-
-# if __name__ == "__main__":
-#     # สร้างหน้าเริ่มเกมและรับชื่อผู้เล่น
-#     start_screen = StartScreen()
-#     player_name = start_screen.display()  # รับชื่อผู้เล่นจากหน้าเริ่มเกม
-#
-#     # เริ่มเกมด้วยชื่อผู้เล่น
-#     game = Game(player_name)
-#     game.start_game()
-
-#
