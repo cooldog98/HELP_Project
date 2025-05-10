@@ -59,7 +59,9 @@ class Enemy_1(pygame.sprite.Sprite):
                         surf = pygame.transform.scale(original_surf, new_size)
                         self.frames[state].append(surf)
 
-    def update_enemy(self, player: Player, offset_x):
+    # def update_enemy(self, player: Player, offset_x):
+    def update_enemy(self, player: Player):
+
         # calculate between player and enemy
         player_true_x = player.rect.x
         player_true_y = player.rect.y
@@ -156,7 +158,8 @@ class Enemy_1(pygame.sprite.Sprite):
 
         # update animation
         self.animate(dt=1 / 60)
-        self.rect.x = self.x_vel - offset_x
+        self.rect.x = self.x_vel
+        # self.rect.x = self.x_vel - offset_x
 
     # def update_enemy(self, player: Player, offset_x):
     #     # Calculate distance to player in world coordinates
@@ -228,3 +231,6 @@ class Enemy_1(pygame.sprite.Sprite):
         self.hurt_timer = self.hurt_duration
         # if self.hp <= 0:
         #     self.alive = False
+
+    def render(self, screen):
+        screen.blit(self.image, self.rect)

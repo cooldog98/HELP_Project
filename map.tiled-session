@@ -1,0 +1,39 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
+        "/Users/patthiaon/Desktop/bg_2.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "test.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "/Users/patthiaon/Downloads/Pixel Art Platformer - Village Props v2/Texture",
+    "map.fixedSize": false,
+    "map.height": 25,
+    "map.width": 32,
+    "openFiles": [
+    ],
+    "project": "map.tiled-project",
+    "property.type": "object",
+    "recentFiles": [
+        "test.tsx",
+        "/Users/patthiaon/Desktop/bg_2.tsx"
+    ],
+    "tileset.embedInMap": true,
+    "tileset.lastUsedFormat": "tsx"
+}
