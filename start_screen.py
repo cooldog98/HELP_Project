@@ -14,9 +14,11 @@ class StartScreen:
     def __init__(self):
         self.running = True
         self.player_name = ""
-        self.bg_image = pygame.image.load("assets/login_bg.jpg")  #  path to background image
+        #  path to background image
+        self.bg_image = pygame.image.load("assets/login_bg.jpg")
+        #  scale to screen size
         self.bg_image = pygame.transform.scale(self.bg_image,
-                                               (screen_width, screen_height))  #  scale to screen size
+                                               (screen_width, screen_height))
         self.font = pygame.font.SysFont('Arial', 40)
 
     def prompt_for_name(self):

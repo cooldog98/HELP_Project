@@ -74,7 +74,8 @@ class Game:
         self.objs.add(self.map_sprites)
 
         self.health_bar = HealthBar(5, 40, 300, 15, 100)
-        self.damage = 10 #damage that player hit enemy
+        # damage that player hit enemy
+        self.damage = 10
 
         self.enemies_defeated = 0
         # self.health_lost = 0
@@ -99,7 +100,7 @@ class Game:
 
         if self.level == 1:
             self.enemies.add(
-        Enemy_1(700, self.height - self.block_size * 1.6, 50, 50),
+                Enemy_1(700, self.height - self.block_size * 1.6, 50, 50),
                 Enemy_1(90, self.height - (self.block_size * 7.5), 50, 50),
                 Enemy_1(900, self.height - (self.block_size * 9.3), 50, 50),
                 Enemy_1(500, self.height - (self.block_size * 6.2), 50, 50),
@@ -285,7 +286,8 @@ class Game:
                 if pygame.sprite.collide_mask(bullet, block):
                     # print(f"Bullet hit block at {block.rect}")
                     bullet.kill()
-                    break # Stop checking other blocks for this bullet
+                    # Stop checking other blocks for this bullet
+                    break
 
             for enemy in self.enemies:
                 if pygame.sprite.collide_rect(bullet, enemy):

@@ -205,5 +205,6 @@ def main():
         print(f"Total players: {len(df['Player Name'].unique())}")
         print(f"Total level completions: {len(df)}")
 
+
 if __name__ == "__main__":
     main()
