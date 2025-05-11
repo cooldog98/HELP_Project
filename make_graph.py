@@ -106,6 +106,7 @@ def save_plots(df, analysis, output_dir='data'):
     plt.title('Distribution of Levels Completed', pad=15)
     plt.setp(autotexts, size=10, weight="bold")
 
+
     # --- Line Graph --- (Bottom-left)
     plt.subplot(2, 2, 3)
     level_styles = {

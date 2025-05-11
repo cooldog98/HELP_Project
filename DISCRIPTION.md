@@ -1,6 +1,6 @@
 # HELP_PROJECT
 
-[![Project Overview](placeholder_screenshot.png)](placeholder_demo_video.mp4)
+https://youtu.be/GnvB3xCmvFc?si=uWbGKoZ2jHywV7lu
 
 **HELP_PROJECT** is a dynamic 2D action platformer developed using Python and the Pygame library. This project delivers
 classic platforming gameplay with an emphasis on action elements, including player combat and engaging level design.

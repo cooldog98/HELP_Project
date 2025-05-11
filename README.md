@@ -79,3 +79,8 @@ Load the data from data_record.csv.
 Perform analysis on level completion.
 Generate and save several plots (distribution of levels completed, distance traveled per level, time vs. enemies defeated, completion rate per level, and a correlation matrix of Avg_Time, Enemies Defeated, Distance, HP, and Completions - note: Avg_Time and Completions need to be present or derivable from your data).
 Save the raw data and analysis results to CSV files in a data directory.
+
+---
+The sprite of player come from: [https://rvros.itch.io/animated-pixel-hero](https://rvros.itch.io/animated-pixel-hero)
+The sprite of enemy come from: [https://dyru.itch.io/pixel-ghost-template](https://dyru.itch.io/pixel-ghost-template)
+The graphics of map come from: [https://o-lobster.itch.io](https://o-lobster.itch.io)
