@@ -76,7 +76,7 @@ palace_game/
 ├── make_graph.py      # A utility script for analyzing game data and generating visualizations.
 ├── player.py          # Defines the Player class, handling player movement and actions.
 ├── start_screen.py    # Defines the StartScreen class for the initial game menu.
-└── data_record.csv?   # (Optional) Data file for analysis (if implemented)
+└── data_record.csv   # (Optional) Data file for analysis (if implemented)
 ```
 Developed By
 Patthiaon Panitanont 6710545792
