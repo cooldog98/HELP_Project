@@ -75,7 +75,6 @@ python3 make_graph.py
  ```
 ---
 The script will:
-
 Load the data from data_record.csv.
 Perform analysis on level completion.
 Generate and save several plots (distribution of levels completed, distance traveled per level, time vs. enemies defeated, completion rate per level, and a correlation matrix of Avg_Time, Enemies Defeated, Distance, HP, and Completions - note: Avg_Time and Completions need to be present or derivable from your data).
