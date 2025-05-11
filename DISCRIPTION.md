@@ -1,13 +1,13 @@
-# Palace Game - 2D Action Platformer
+# HELP_PROJECT
 
 [![Project Overview](placeholder_screenshot.png)](placeholder_demo_video.mp4)
 
-**Palace Game** is a dynamic 2D action platformer developed using Python and the Pygame library. This project delivers
+**HELP_PROJECT** is a dynamic 2D action platformer developed using Python and the Pygame library. This project delivers
 classic platforming gameplay with an emphasis on action elements, including player combat and engaging level design.
 
 ## ♥︎ Overview and Concept
 
-Palace Game combines traditional platforming mechanics with action-oriented gameplay. Players control a character who navigates through levels, overcoming obstacles and battling enemies. The core gameplay loop involves:
+HELP_PROJECT combines traditional platforming mechanics with action-oriented gameplay. Players control a character who navigates through levels, overcoming obstacles and battling enemies. The core gameplay loop involves:
 
 * **Platforming:** Players traverse levels with jumps, movement, and interaction with platforms and the environment.
 * **Combat:** Players engage enemies using projectile attacks (bullets), requiring aiming and timing.
