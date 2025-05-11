@@ -1,0 +1,40 @@
+{
+    "A": {
+        "total_distance": 6925,
+        "levels": {
+            "level_1": {
+                "time": 23.32,
+                "enemies_defeated": 4
+            },
+            "level_2": {
+                "time": 26.82,
+                "enemies_defeated": 4
+            },
+            "level_3": {
+                "time": 41.53,
+                "enemies_defeated": 6
+            }
+        },
+        "total levels": 3,
+        "HP": 48
+    },
+    "B": {
+        "total_distance": 5975,
+        "levels": {
+            "level_1": {
+                "time": 22.78,
+                "enemies_defeated": 4
+            },
+            "level_2": {
+                "time": 27.02,
+                "enemies_defeated": 4
+            },
+            "level_3": {
+                "time": 37.12,
+                "enemies_defeated": 6
+            }
+        },
+        "total levels": 3,
+        "HP": 53
+    }
+}

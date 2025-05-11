@@ -3,12 +3,14 @@ import pygame
 import pytmx
 import json
 import time
+import csv
+import os
 
 
 from player import Player
 from game_platform import Platform
 from health import HealthBar
-from block import Block
+# from block import Block
 from enemy import Enemy_1
 
 
@@ -48,12 +50,17 @@ class Game:
         # self.player = Player(-950, self.height - self.block_size * 2, 60, 60)
         self.player = Player(100, self.height - self.block_size * 2, 60, 60)
 
-        self.enemies = pygame.sprite.Group()
+        self.level = 1
+        self.max_level = 3
 
-        self.enemies.add(Enemy_1(700, self.height - self.block_size * 1.6, 50, 50),
-                         Enemy_1(100, self.height - (self.block_size * 9), 50, 50),
-                         Enemy_1(900, self.height - (self.block_size * 9.3), 50, 50),
-                         Enemy_1(200, self.height - (self.block_size * 13.8), 50, 50))
+        # self.enemies = pygame.sprite.Group()
+        self.enemies = pygame.sprite.Group()
+        self.spawn_enemies_by_level()
+
+        # self.enemies.add(Enemy_1(700, self.height - self.block_size * 1.6, 50, 50),
+        #                  Enemy_1(100, self.height - (self.block_size * 9), 50, 50),
+        #                  Enemy_1(900, self.height - (self.block_size * 9.3), 50, 50),
+        #                  Enemy_1(200, self.height - (self.block_size * 13.8), 50, 50))
 
         self.platform = Platform(self.width, self.height)
 
@@ -63,11 +70,15 @@ class Game:
         self.scroll_speed = 10
         self.objs = pygame.sprite.Group()
 
-        self.tmx_data, self.map_sprites = self.load_map('map_lavel1.tmx', screen)
+        # self.tmx_data, self.map_sprites = self.load_map('map_level1.tmx', screen)
+        self.tmx_data, self.map_sprites = self.load_map(screen)
         self.objs.add(self.map_sprites)
 
         self.health_bar = HealthBar(5, 40, 300, 15, 100)
-        self.damage = 5
+        self.damage = 10 #damage that player hit enemy
+
+        self.enemies_defeated = 0
+        # self.health_lost = 0
 
         self.font = pygame.font.SysFont('Arial', 24)
 
@@ -76,6 +87,44 @@ class Game:
         self.start_time = None
         self.end_time = None
         self.time_recorded = False  # เพื่อป้องกันบันทึกซ้ำ
+
+        self.distance = 0
+        self.last_position = self.player.rect.x
+        self.distance_log = []
+        self.enemy_kill = []
+        self.total_enemy = 0
+        self.distance_timer = 0
+
+    def spawn_enemies_by_level(self):
+        self.enemies.empty()  # remove old enemies
+
+        if self.level == 1:
+            self.enemies.add(
+        Enemy_1(700, self.height - self.block_size * 1.6, 50, 50),
+                Enemy_1(90, self.height - (self.block_size * 7.5), 50, 50),
+                Enemy_1(900, self.height - (self.block_size * 9.3), 50, 50),
+                Enemy_1(500, self.height - (self.block_size * 6.2), 50, 50),
+                Enemy_1(700, self.height - (self.block_size * 11.3), 50, 50)
+            )
+        elif self.level == 2:
+            self.enemies.add(
+                Enemy_1(400, self.height - self.block_size * 2.7, 50, 50),
+                Enemy_1(200, self.height - self.block_size * 7.4, 50, 50),
+                Enemy_1(900, self.height - self.block_size * 13.1, 50, 50),
+                Enemy_1(400, self.height - self.block_size * 10.6, 50, 50),
+                Enemy_1(900, self.height - self.block_size * 7.4, 50, 50),
+                Enemy_1(100, self.height - self.block_size * 13.1, 50, 50)
+            )
+        elif self.level == 3:
+            self.enemies.add(
+                Enemy_1(150, self.height - self.block_size * 1.6, 50, 50),
+                Enemy_1(350, self.height - self.block_size * 6, 50, 50),
+                Enemy_1(890, self.height - self.block_size * 9.2, 50, 50),
+                Enemy_1(900, self.height - self.block_size * 3.8, 50, 50),
+                Enemy_1(200, self.height - self.block_size * 13.2, 50, 50),
+                Enemy_1(300, self.height - self.block_size * 8, 50, 50),
+                Enemy_1(500, self.height - self.block_size * 11.2, 50, 50)
+            )
 
     def draw_player_name(self):
         """show name of player"""
@@ -86,33 +135,72 @@ class Game:
         self.start_time = time.time()
 
     def stop_timer_and_save(self, player_name):
-        if not self.time_recorded:
+        if not self.time_recorded and self.start_time is not None:
             self.end_time = time.time()
             elapsed_time = round(self.end_time - self.start_time, 2)
-            self.save_time(player_name, elapsed_time)
+            self.save_data(player_name, elapsed_time)
             self.time_recorded = True
             self.player.timer_running = False
 
-    def save_time(self, player_name, elapsed_time):
-        filename = "time_record.json"
-        try:
-            with open(filename, 'r') as f:
-                data = json.load(f)
-        except (FileNotFoundError, json.decoder.JSONDecodeError):
-            data = {}
+    def save_data(self, player_name, elapsed_time):
+        filename = "data_record.csv"
+        file_exists = os.path.isfile(filename)
 
-        data[player_name] = elapsed_time
+        # Prepare the data for this level
+        level_key = f"level_{self.level}"
+        row = {
+            "Player Name": player_name,
+            "Level": self.level,
+            "Time (s)": elapsed_time,
+            "Enemies Defeated": self.enemies_defeated,
+            "HP": self.player.hp,
+            "Distance": round(self.distance, 2)
+        }
 
-        with open(filename, 'w') as f:
-            json.dump(data, f, indent=4)
+        # Write to CSV
+        with open(filename, 'a', newline='') as csvfile:
+            fieldnames = ["Player Name", "Level", "Time (s)", "Enemies Defeated", "HP", "Distance"]
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
-    # def stop_timer(self):
-    #     """Stop the timer when the player presses a key."""
-    #     if self.get_key:
-    #         self.player.time_elapsed = pygame.time.get_ticks() - self.player.time_start
-    #         self.player.timer_running = False
-    #         # print(f"Timer stopped. Time elapsed: {self.player.time_elapsed / 1000} seconds")
+            # Write header only if file didn't exist
+            if not file_exists:
+                writer.writeheader()
+
+            writer.writerow(row)
+
+    # def save_data(self, player_name, elapsed_time):
+    #     filename = "data_record.json"
+    #     try:
+    #         with open(filename, 'r') as f:
+    #             data = json.load(f)
+    #     except (FileNotFoundError, json.decoder.JSONDecodeError):
+    #         data = {}
     #
+    #     if player_name not in data:
+    #         data[player_name] = {}
+    #
+    #     # ตรวจสอบว่ามี total_distance หรือยัง ถ้ายังให้เริ่มที่ 0
+    #
+    #     data[player_name]["total_distance"] = 0
+    #     if "levels" not in data[player_name]:
+    #         data[player_name]["levels"] = {}
+    #     if player_name in data and "levels" in data[player_name]:
+    #         data[player_name]["total levels"] = self.level
+    #     data[player_name]["HP"] = self.player.hp
+    #     # รวมค่าทุกด่านเข้า total
+    #     list_enemy = []
+    #     data[player_name]["total_distance"] += round(self.distance, 2)
+    #
+    #     # เก็บเวลาใน level ปัจจุบัน
+    #     level_key = f"level_{self.level}"
+    #     data[player_name]["levels"][level_key] = {
+    #         "time": elapsed_time,
+    #         "enemies_defeated": self.enemies_defeated
+    #     }
+    #
+    #     with open(filename, 'w') as f:
+    #         json.dump(data, f, indent=4)
+
     def render_time(self):
         """Render the time on the screen."""
         if self.player.timer_running:
@@ -177,16 +265,16 @@ class Game:
 
         for key_obj in key_objects:
             # Debug output
-            print("\n--- Collision Check ---")
-            print(f"Player position: {self.player.rect.topleft}")
-            print(f"Key position: {key_obj.rect.topleft}")
+            # print("\n--- Collision Check ---")
+            # print(f"Player position: {self.player.rect.topleft}")
+            # print(f"Key position: {key_obj.rect.topleft}")
 
             # Check both simple and mask collision
             simple_collision = self.player.rect.colliderect(key_obj.rect)
             mask_collision = pygame.sprite.collide_mask(self.player, key_obj)
 
-            print(f"Simple collision: {simple_collision}")
-            print(f"Mask collision: {mask_collision}")
+            # print(f"Simple collision: {simple_collision}")
+            # print(f"Mask collision: {mask_collision}")
 
             if mask_collision or simple_collision:
                 self.get_key = True
@@ -195,7 +283,7 @@ class Game:
                 # self.stop_timer_and_save()
                 return
 
-        print("Player near key but no collision detected")
+        # print("Player near key but no collision detected")
 
     def handle_check_collision_y(self, player, objects):
         for obj in objects:
@@ -250,9 +338,15 @@ class Game:
                     # enemy.get_attack = False
                     if enemy.hp <= 0:
                         enemy.kill()
+                        self.enemies_defeated += 1
+                        self.enemy_kill.append(self.enemies_defeated)
+                        self.total_enemy = sum(self.enemy_kill)
+
                     # print(enemy.hp)
 
-    def load_map(self, map_file, screen):
+    def load_map(self, screen):
+        map_file = f"map_level{self.level}.tmx"  # dynamically load map
+        # tmx_data = pytmx.load_pygame(map_file)
         tmx_data = pytmx.load_pygame(map_file)
         all_sprites = pygame.sprite.Group()
 
@@ -276,6 +370,38 @@ class Game:
 
         return tmx_data, all_sprites
 
+    def load_next_level(self):
+        if self.level < self.max_level:
+            self.level += 1
+            self.spawn_enemies_by_level()
+            self.get_key = False
+            self.start_timer()  # reset timer for new level
+            self.tmx_data, self.map_sprites = self.load_map(screen)
+            self.objs.empty()
+            self.objs.add(self.map_sprites)
+            self.player.rect.x = 100  # Reset player position
+            self.player.rect.y = self.height - self.block_size * 2
+            self.time_recorded = False
+
+            self.distance = 0
+            self.distance_log = []
+            self.enemies_defeated = 0  # ถ้ามีระบบนี้ใน Player
+
+        else:
+            print("All levels completed!")
+            pygame.quit()
+            sys.exit()
+
+    def update_distance_log(self, dt):
+        self.distance_timer += dt
+        distance_delta = abs(self.player.rect.x - self.last_position)
+        self.distance += distance_delta
+        self.last_position = self.player.rect.x
+
+        if self.distance_timer >= 10:  # log ทุก 10 วินาที
+            self.distance_log.append(round(self.distance, 2))
+            self.distance_timer = 0
+
     def update(self):
         # tmx_data = self.load_map('map_lavel1.tmx', screen)
         """Main game loop"""
@@ -283,11 +409,14 @@ class Game:
             screen.fill((0, 0, 0))
             # screen.blit(self.background, self.camera.apply_offset(self.background))
             # screen.blit(self.player.image, self.camera.apply(self.player))
-            self.load_map('map_lavel1.tmx', screen)
+            # self.load_map('map_lavel1.tmx', screen)
+            self.load_map(screen)
             self.player.render(screen)
             # self.camera.update(self.player)
             """Convert to seconds"""
             dt = self.clock.tick(60) / 1000
+            """distance"""
+            self.update_distance_log(dt)
             """pygame.event.get() เรียกใช้ในทุก frames ป้องการการค้าง"""
             """1. When the player presses a key, clicks the mouse, or closes the window → Pygame creates an event.
             2. These events are stored in the event queue (a list).
@@ -298,6 +427,10 @@ class Game:
                     sys.exit()
 
                 if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        pygame.quit()
+                        sys.exit()
+
                     if event.key == pygame.K_SPACE and self.player.jump_count < 2:
                         self.player.jump()
 
@@ -348,6 +481,7 @@ class Game:
             if self.health_bar.hp <= 0:
                 print('Player Dying')
                 pygame.quit()
+                sys.exit()
 
             if (self.player.rect.right - self.offset_x >= self.width - self.scroll_area_width
                 and self.player.x_vel > 0) or (self.player.rect.left - self.offset_x <= self.scroll_area_width
@@ -361,11 +495,23 @@ class Game:
 
             if self.get_key:
                 self.stop_timer_and_save(self.player_name)
+                screen.fill((0, 0, 0))
+                passed = self.font.render(f"Level {self.level} Passed!", True, (255, 255, 255))
+                screen.blit(passed, (screen_width // 2 - 100, screen_height // 2))
+                pygame.display.update()
+                pygame.time.wait(1500)
+                self.load_next_level()
+
+            # if self.get_key:
+            #     self.stop_timer_and_save(self.player_name)
+            #     pygame.display.update()
+            #     pygame.time.wait(1000)  # wait 1 second before switching
+            #     self.load_next_level()
 
             if self.player.rect.top > self.height:
                 # self.player.die()
                 print('game over')
-                exit()
+                # exit()
 
             if self.get_key:
                 screen.fill((0, 0, 0))

@@ -17,7 +17,7 @@ class Enemy_1(pygame.sprite.Sprite):
         self.attack_range = 300  # Distance at which enemy will start chasing
         self.direction = 'right'  # Start facing right
         # self.animation_timer = 0
-        self.hp = 50
+        self.hp = 30
 
         self.attack_cooldown = 60 #cooldown when attack player
         self.is_attacking = False
@@ -140,13 +140,7 @@ class Enemy_1(pygame.sprite.Sprite):
                     self.is_attacking = True
                     self.target_x = self.x_vel - 10
                     print("enemy attack!")  # ตรงนี้คุณจะเชื่อมไปลด HP ผู้เล่นได้
-                    player.health_player(3)
-            # else:
-            #     print('run')
-            #     print(abs(dist_y), player_true_y)
-            #     if self.attack_cooldown == 0:
-            #         self.state = 'ghost'
-            #         self.target_x = self.x_vel
+                    player.health_player(2) #reduce hp of player
 
         else:
             # print('ghost')
