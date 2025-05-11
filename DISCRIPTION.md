@@ -17,7 +17,7 @@ The concept revolves around creating an engaging and challenging experience with
 
 ## 📜 UML Class Diagram
 
-![img.png](img.png)
+![UML.jpeg](UML.jpeg)
 
 ---
 

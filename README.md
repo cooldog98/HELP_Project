@@ -57,8 +57,7 @@ Out: use esc to quit the game.
 
 To conquer each level, you have to arrive at this destination.
 To triumph in each phase, you're required to make it to this location.
-![chack point.png](..%2F..%2FDesktop%2Fchack%20point.png)
-
+![chack point.png](chack%20point.png)
 
 Refer to in-game instructions or experiment to confirm the exact controls.
 ---
