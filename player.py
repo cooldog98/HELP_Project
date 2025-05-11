@@ -87,20 +87,12 @@ class Player(pygame.sprite.Sprite):
             self.frames_index = current_index
             self.ani_count = 0
 
-    # def _gravity(self, fps):
-    #     self.y_vel += min(2, (self.fall_count / fps) * self.gravity)
-    #     self.fall_count += 1
-
     def loop(self, fps, dt):
         self.y_vel += min(2, (self.fall_count / fps) * self.gravity)
         self.fall_count += 1
 
     def draw_player(self, screen, offset_x):
         screen.blit(self.image, (self.rect.x - offset_x, self.rect.y))
-        # self.sprite = self.SPRITES['run_use_' + self.direction][0]
-        # if self.sprite:
-        #     screen.blit(self.sprite, (self.rect.x, self.rect.y))
-        # pygame.draw.rect(screen, self.color, self.rect)
 
     def stop(self):
         self.x_vel = 0
@@ -188,28 +180,6 @@ class Player(pygame.sprite.Sprite):
             if current_frame >= len(self.frames[self.state]) - 1:
                 self.shooting = False
                 self.shot_this_animation = False
-        # if self.shooting:
-        #     # Spawn bullet at specific frame (frame 7)
-        #     if (prev_frame < self.shoot_frame <= current_frame and
-        #             not self.shot_this_animation and
-        #             self.shoot_cooldown == 0):
-        #
-        #         # Create bullet
-        #         if self.direction == 'right':
-        #             bullet_x = self.rect.right
-        #         else:
-        #             bullet_x = self.rect.left - 10
-        #         bullet_y = self.rect.centery
-        #
-        #         bullet = Bullet(bullet_x, bullet_y, self.direction)
-        #         self.bullets.add(bullet)
-        #         self.shoot_cooldown = 15
-        #         self.shot_this_animation = True
-        #
-        #     # Reset shooting state when animation completes
-        #     if current_frame >= len(self.frames[self.state]) - 1:
-        #         self.shooting = False
-        #         self.shot_this_animation = False
 
         self.image = self.frames[self.state][int(self.frames_index) % len(self.frames[self.state])]
 
@@ -224,24 +194,6 @@ class Player(pygame.sprite.Sprite):
             # Start the timer when the player lands
             self.time_start = pygame.time.get_ticks()
             self.timer_running = True
-
-    # def stop_timer(self):
-    #     """Stop the timer when the player presses a key."""
-    #     if self.Game.get_key:
-    #         self.time_elapsed = pygame.time.get_ticks() - self.time_start
-    #         self.timer_running = False
-    #         print(f"Timer stopped. Time elapsed: {self.time_elapsed / 1000} seconds")
-
-    # def render_time(self, screen):
-    #     """Render the time on the screen."""
-    #     if self.timer_running:
-    #         time_text = f"Time: {(pygame.time.get_ticks() - self.time_start) / 1000:.2f} s"
-    #     else:
-    #         time_text = f"Time: {self.time_elapsed / 1000:.2f} s"
-    #
-    #     # Render the time text
-    #     time_surface = self.font.render(time_text, True, (255, 255, 255))  # Black color text
-    #     screen.blit(time_surface, (5, 5))  # Position it at (10, 10) on the screen
 
     def hit_head(self):
         self.count = 0
@@ -259,26 +211,10 @@ class Player(pygame.sprite.Sprite):
             bullet = Bullet(bullet_x, bullet_y, self.direction)
             self.bullets.add(bullet)
             self.shoot_cooldown = 15
-        # if self.shoot_cooldown == 0 and self.jump_count == 0 and not self.shooting:
-        #     self.shooting = True
-        #     self.frames_index = 0  # Reset animation
-        #     self.shot_this_animation = False
-        #     # Better bullet spawn position (from player's gun)
-        #     if self.direction == 'right':
-        #         bullet_x = self.rect.right
-        #     else:
-        #         bullet_x = self.rect.left - 10
-        #     bullet_y = self.rect.centery  # Adjust to gun position
-        #
-        #     bullet = Bullet(bullet_x, bullet_y, self.direction)
-        #     self.bullets.add(bullet)
-        #     self.shoot_cooldown = 15  # Cooldown frames
 
     def update(self):
         if self.shoot_cooldown > 0:
             self.shoot_cooldown -= 1
-        # if self.is_landed:
-        #     self.stop_timer()
 
     def health_player(self, damage):
         self.hp -= damage

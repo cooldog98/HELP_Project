@@ -106,18 +106,6 @@ def save_plots(df, analysis, output_dir='data'):
     plt.title('Distribution of Levels Completed', pad=15)
     plt.setp(autotexts, size=10, weight="bold")
 
-    # --- Boxplot --- (Top-right)
-    # plt.subplot(2, 2, 2)
-    # df.boxplot(column='Distance', by='Level', grid=False,
-    #            patch_artist=True,
-    #            boxprops=dict(facecolor='lightblue'),
-    #            medianprops=dict(color='red'))
-    # plt.title('Distance Traveled by Level')
-    # plt.suptitle('')  # Remove default subtitle
-    # plt.xlabel('Level')
-    # plt.ylabel('Distance')
-    # plt.grid(True, linestyle='--', alpha=0.5)
-
     # --- Line Graph --- (Bottom-left)
     plt.subplot(2, 2, 3)
     level_styles = {

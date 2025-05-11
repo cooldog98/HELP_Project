@@ -56,11 +56,6 @@ class Game:
         self.enemies = pygame.sprite.Group()
         self.spawn_enemies_by_level()
 
-        # self.enemies.add(Enemy_1(700, self.height - self.block_size * 1.6, 50, 50),
-        #                  Enemy_1(100, self.height - (self.block_size * 9), 50, 50),
-        #                  Enemy_1(900, self.height - (self.block_size * 9.3), 50, 50),
-        #                  Enemy_1(200, self.height - (self.block_size * 13.8), 50, 50))
-
         self.platform = Platform(self.width, self.height)
 
         self.offset_x = -(-self.player.rect.x + self.width // 2 - self.player.rect.width // 2)
@@ -368,9 +363,6 @@ class Game:
         """Main game loop"""
         while True:
             screen.fill((0, 0, 0))
-            # screen.blit(self.background, self.camera.apply_offset(self.background))
-            # screen.blit(self.player.image, self.camera.apply(self.player))
-            # self.load_map('map_lavel1.tmx', screen)
             self.load_map(screen)
             self.player.render(screen)
             # self.camera.update(self.player)
@@ -451,9 +443,6 @@ class Game:
                 """dt * 60 beacues เพราะ dt = 1/60 ใน fps 60
                 จะได้ความเร็วปกติเท่ากับค่าเดิม (x_vel = 10)"""
 
-            # if self.player.is_landed:
-            #     self.stop_timer()
-
             if self.get_key:
                 self.stop_timer_and_save(self.player_name)
                 screen.fill((0, 0, 0))
@@ -462,12 +451,6 @@ class Game:
                 pygame.display.update()
                 pygame.time.wait(1500)
                 self.load_next_level()
-
-            # if self.get_key:
-            #     self.stop_timer_and_save(self.player_name)
-            #     pygame.display.update()
-            #     pygame.time.wait(1000)  # wait 1 second before switching
-            #     self.load_next_level()
 
             if self.player.rect.top > self.height:
                 # self.player.die()
@@ -483,8 +466,6 @@ class Game:
                 # self.player.timer_running = False
                 print('pass')
 
-            # self.load_map('map_lavel1.tmx', screen)
-            # self.player.render(screen)
             pygame.display.update()
             """setup frames per second be 60"""
             self.clock.tick(60)
