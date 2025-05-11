@@ -1,7 +1,7 @@
 import sys
 import pygame
 import pytmx
-import json
+# import json
 import time
 import csv
 import os
@@ -10,7 +10,6 @@ import os
 from player import Player
 from game_platform import Platform
 from health import HealthBar
-# from block import Block
 from enemy import Enemy_1
 
 
@@ -168,39 +167,6 @@ class Game:
 
             writer.writerow(row)
 
-    # def save_data(self, player_name, elapsed_time):
-    #     filename = "data_record.json"
-    #     try:
-    #         with open(filename, 'r') as f:
-    #             data = json.load(f)
-    #     except (FileNotFoundError, json.decoder.JSONDecodeError):
-    #         data = {}
-    #
-    #     if player_name not in data:
-    #         data[player_name] = {}
-    #
-    #     # ตรวจสอบว่ามี total_distance หรือยัง ถ้ายังให้เริ่มที่ 0
-    #
-    #     data[player_name]["total_distance"] = 0
-    #     if "levels" not in data[player_name]:
-    #         data[player_name]["levels"] = {}
-    #     if player_name in data and "levels" in data[player_name]:
-    #         data[player_name]["total levels"] = self.level
-    #     data[player_name]["HP"] = self.player.hp
-    #     # รวมค่าทุกด่านเข้า total
-    #     list_enemy = []
-    #     data[player_name]["total_distance"] += round(self.distance, 2)
-    #
-    #     # เก็บเวลาใน level ปัจจุบัน
-    #     level_key = f"level_{self.level}"
-    #     data[player_name]["levels"][level_key] = {
-    #         "time": elapsed_time,
-    #         "enemies_defeated": self.enemies_defeated
-    #     }
-    #
-    #     with open(filename, 'w') as f:
-    #         json.dump(data, f, indent=4)
-
     def render_time(self):
         """Render the time on the screen."""
         if self.player.timer_running:
@@ -264,17 +230,10 @@ class Game:
             return
 
         for key_obj in key_objects:
-            # Debug output
-            # print("\n--- Collision Check ---")
-            # print(f"Player position: {self.player.rect.topleft}")
-            # print(f"Key position: {key_obj.rect.topleft}")
 
             # Check both simple and mask collision
             simple_collision = self.player.rect.colliderect(key_obj.rect)
             mask_collision = pygame.sprite.collide_mask(self.player, key_obj)
-
-            # print(f"Simple collision: {simple_collision}")
-            # print(f"Mask collision: {mask_collision}")
 
             if mask_collision or simple_collision:
                 self.get_key = True

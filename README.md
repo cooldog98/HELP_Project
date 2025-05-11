@@ -3,9 +3,10 @@
 ## Overview
 
 Palace Game is a 2D platformer built using Python and the Pygame library. Players navigate through levels, encounter and defeat enemies, and aim to progress within the game world.
-
+---
 ## 📂 Project Structure
 
+```bash
 palace_game/
 ├── bullet.py          # Defines the Bullet class for projectiles.
 ├── enemy.py           # Defines the Enemy_1 class for enemy characters.
@@ -16,25 +17,25 @@ palace_game/
 ├── make_graph.py      # A utility script for analyzing game data and generating visualizations.
 ├── player.py          # Defines the Player class, handling player movement and actions.
 └── start_screen.py    # Defines the StartScreen class for the initial game menu.
-
-
+```
+---
 ## 📦 Installation Guide
 
 To run Palace Game on your system, follow these steps:
 
 **Prerequisites:**
 
-Ensure you have **Python 3.x** installed. You can check your Python version by running:
+**Python 3.13.0** installed:
 
-python --version
 If you don't have Python installed, download it from the official Python website (https://www.python.org/downloads/) and follow the installation instructions.
 
 Install Dependencies:
 
 Palace Game relies on the Pygame library. To install it, open your terminal or command prompt, navigate to the directory containing the game files (where main.py is located), and run:
 
-Bash
+ ```bash
 pip install pygame
+ ```
 This command will download and install Pygame.
 
 🚀 Getting Started
@@ -42,11 +43,13 @@ Navigate to the Project Directory: Open your terminal or command prompt and go t
 
 Run the Game: Execute the main script using Python:
 
-Bash
+ ```bash
 python3 main.py
+ ```
  Press Enter after typing the command. The Palace Game window should open, and you can start playing.
-
+---
 Game Controls (Inferred from Code - May Vary)
+
 Movement: Likely uses A to Left and D to Right.
 Jump: Likely uses Spacebar.
 Shoot: Based on the Player and Bullet classes, there is likely a key to trigger shooting (use enter).
@@ -58,7 +61,7 @@ To triumph in each phase, you're required to make it to this location.
 
 
 Refer to in-game instructions or experiment to confirm the exact controls.
-
+---
 Data Analysis (make_graph.py)
 The make_graph.py script is a separate tool for analyzing game data, assuming the game collects and stores data in a data_record.csv file.
 
@@ -68,9 +71,11 @@ Ensure that a data_record.csv file exists in the same directory as make_graph.py
 
 Run the script from your terminal:
 
-Bash
+ ```bash
 python3 make_graph.py
- The script will:
+ ```
+---
+The script will:
 
 Load the data from data_record.csv.
 Perform analysis on level completion.
