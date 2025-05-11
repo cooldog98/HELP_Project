@@ -1,8 +1,8 @@
-# Palace Game - 2D Platformer
+# HELP_PROJECT
 
 ## Overview
 
-Palace Game is a 2D platformer built using Python and the Pygame library. Players navigate through levels, encounter and defeat enemies, and aim to progress within the game world.
+HELP_PROJECT is a 2D platformer built using Python and the Pygame library. Players navigate through levels, encounter and defeat enemies, and aim to progress within the game world.
 ---
 ## 📂 Project Structure
 
