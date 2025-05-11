@@ -36,14 +36,14 @@ The concept revolves around creating an engaging and challenging experience with
 
 ## 📡 Core Technologies
 
-* Python 3.x (Specific version recommended: Check your development environment)
+* Python 3.13.0 (Specific version recommended: Check your development environment)
 * Pygame (Version: Check your development environment, but likely a recent version)
 
 ---
 
 ## 🖥️ Installation
 
-1.  Ensure Python 3.x is installed on your system.
+1.  Ensure Python 3.13.0 is installed on your system.
 2.  Install the required Pygame package:
 
     ```bash
